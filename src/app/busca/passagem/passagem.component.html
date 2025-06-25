@@ -30,7 +30,7 @@
           </div>
           <div class="grupo" *ngIf="passagem.dataVolta">
             <mat-label>Volta</mat-label>
-            <p class="box">
+            <p data-testid="texto-data-volta" class="box">
               {{ passagem.dataVolta | date : "dd/MM" }}
             </p>
           </div>

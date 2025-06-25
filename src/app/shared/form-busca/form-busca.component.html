@@ -48,7 +48,7 @@
           data-testid="campo-dropdown-origem"
         />
       </div>
-      <button mat-icon-button (click)="formBuscaService.trocarOrigemDestino()">
+      <button type="button" mat-icon-button (click)="formBuscaService.trocarOrigemDestino()">
         <mat-icon>sync_alt</mat-icon>
       </button>
       <div class="drop-container">
@@ -68,6 +68,7 @@
           formControlName="dataIda"
           data-testid="campo-data-ida"
         />
+        <mat-hint>mês/dia/ano</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
           [for]="ida"
@@ -78,6 +79,7 @@
       <mat-form-field class="input-container" appearance="outline">
         <mat-label>Data da volta</mat-label>
         <input matInput [matDatepicker]="volta" formControlName="dataVolta" />
+        <mat-hint>mês/dia/ano</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
           [for]="volta"

@@ -68,8 +68,9 @@ export class PerfilComponent implements OnInit{
     };
 
     this.cadastroService.editarCadastro(dadosAtualizados).subscribe({
-      next: () => {
+      next: ({ access_token }) => {
         alert('Cadastro editado com sucesso');
+        this.userService.salvarToken(access_token);
         this.router.navigate(['/']);
       },
       error: (err) => {
