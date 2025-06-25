@@ -16,5 +16,7 @@ test.describe("Buscar Passagens", () => {
     await paginaPrincipal.definirOrigemEDestino("minas gerais", "rio de janeiro");
     await paginaPrincipal.definirData(new Date());
     await paginaPrincipal.buscarPassagens();
+
+    await paginaPrincipal.estaMostrandoPassagem('Somente ida', 'Minas Gerais', 'Rio de Janeiro', new Date());
   });
 });
