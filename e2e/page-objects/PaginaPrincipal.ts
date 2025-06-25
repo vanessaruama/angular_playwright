@@ -16,6 +16,8 @@ export default class PaginaPrincipal {
   private readonly containerOrigem: Locator;
   private readonly containerDestino: Locator;
   private readonly botaoComprar: Locator;
+  private readonly textoDataIda: Locator;
+  private readonly menorPreco: Locator;
 
   constructor(page: Page) {
 this.page = page;
@@ -48,6 +50,9 @@ this.page = page;
     this.containerOrigem = page.getByTestId('container-origem');
     this.containerDestino = page.getByTestId('container-destino');
     this.botaoComprar = page.getByTestId('botao-comprar');
+    this.textoDataIda = page.getByTestId('texto-data-ida');
+
+    this.menorPreco = page.getByText('Menor preço');
   }
 
   async visitar() {
@@ -91,7 +96,7 @@ this.page = page;
     await this.campoDropdownDestino.press('Enter');
   }
 
-  async definirData(data: Date) {
+  async definirDataIda(data: Date) {
     const dataFormatada = data.toLocaleDateString('en-US', { dateStyle: 'short'}); //formata a data para o formato MM/DD/AAAA
     await  this.campoDataIda.fill(dataFormatada);
   }
@@ -104,17 +109,20 @@ this.page = page;
     tipoTrajeto: 'Somente ida' | 'Ida e Volta',
     origem: string,
     destino: string,
-    data: Date
+    dataIda: Date,
+    menorPreco: string
   ) {
+    const dataIdaExibicao = this.obterDataExibicao(dataIda);
+
     await expect(this.textoIdaVolta).toHaveText(tipoTrajeto);
     await expect(this.containerOrigem).toContainText(origem);
     await expect(this.containerDestino).toContainText(destino);
     await expect(this.botaoComprar).toBeVisible();
-    await expect(this.campoDataIda).toHaveValue(
-      data.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric'
-      })); //Preciso fazer assim porque a data é exibida no formato MM/DD/AAAA mas a formatação do campo é diferente
+    await expect(this.textoDataIda).toHaveText(dataIdaExibicao);
+    await expect(this.menorPreco).toContainText(menorPreco);
+  }
+
+  private obterDataExibicao(data: Date) {
+    return data.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit' });
   }
 }
