@@ -83,4 +83,20 @@ this.page = page;
   async fecharModalPassageiros() {
     await this.botaoFecharModalPassageiros.click();
   }
+
+  async definirOrigemEDestino(origem: string, destino: string) {
+    await this.campoDropdownOrigem.fill(origem);
+    await this.campoDropdownOrigem.press('Enter'); // Simula a tecla Enter
+    await this.campoDropdownDestino.fill(destino);
+    await this.campoDropdownDestino.press('Enter');
+  }
+
+  async definirData(data: Date) {
+    const dataFormatada = data.toLocaleDateString('en-US', { dateStyle: 'short' }); //formata a data para o formato MM/DD/AAAA
+    await  this.campoDataIda.fill(dataFormatada);
+  }
+
+  async buscarPassagens() {
+    await this.botaoBuscarPassagens.click();
+  }
 }

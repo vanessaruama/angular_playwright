@@ -12,5 +12,9 @@ test.describe("Buscar Passagens", () => {
     await paginaPrincipal.definirPassageirosCriancas(1);
     await paginaPrincipal.definirPassageirosBebes(1);
     await paginaPrincipal.fecharModalPassageiros();
+
+    await paginaPrincipal.definirOrigemEDestino("minas gerais", "rio de janeiro");
+    await paginaPrincipal.definirData(new Date());
+    await paginaPrincipal.buscarPassagens();
   });
 });
