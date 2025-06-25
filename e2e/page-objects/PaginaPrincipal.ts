@@ -53,4 +53,34 @@ this.page = page;
   async visitar() {
     await this.page.goto("/");
   }
+
+  async definirSomenteIda() {
+    await this.botaoSomenteIda.click();
+  }
+
+  async abrirModalPassageiros() {
+    await this.botaoAbrirModalPassageiros.click();
+  }
+
+  async definirPassageirosAdultos(quantidade: number) {
+    for (let i = 1; i < quantidade; i++) {
+      await this.botaoIncrementarAdultos.click();
+    }
+  }
+
+  async definirPassageirosCriancas(quantidade: number) {
+    for (let i = 0; i < quantidade; i++) {
+      await this.botaoIncrementarCriancas.click();
+    }
+  }
+
+  async definirPassageirosBebes(quantidade: number) {
+    for (let i = 0; i < quantidade; i++) {
+      await this.botaoIncrementarBebes.click();
+    }
+  }
+
+  async fecharModalPassageiros() {
+    await this.botaoFecharModalPassageiros.click();
+  }
 }
