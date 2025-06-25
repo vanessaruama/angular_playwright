@@ -20,7 +20,7 @@ export default class PaginaPrincipal {
   private readonly menorPreco: Locator;
 
   constructor(page: Page) {
-this.page = page;
+    this.page = page;
     this.botaoSomenteIda = page.getByTestId('botao-somente-ida');
 
     this.botaoAbrirModalPassageiros = page.getByTestId('abrir-modal-passageiros');
