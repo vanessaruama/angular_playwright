@@ -30,4 +30,9 @@ export default class PaginaLogin {
   async loginFeitoComSucesso() {
     await expect(this.page).toHaveURL("/home"); //Verifica se a URL voltou para a página inicial
   }
+
+  async estaMostrandoMensagemDeErro(mensagem: string) {
+    const elementoErro = this.page.getByText(mensagem); //Capturando de forma dinâmica a mensagem de erro
+    await expect(elementoErro).toBeVisible(); //Verifica se a mensagem de erro está visível
+  }
 }
