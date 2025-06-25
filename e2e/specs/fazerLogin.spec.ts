@@ -1,4 +1,4 @@
-import {test} from "./page-objects/PaginaLogin";
+import {test} from "../setup/fixtures";
 
 test.describe("Página de Login", () => {
   test("Deve conseguir fazer login com email e senha válidos", async ({ paginaLogin }) => {

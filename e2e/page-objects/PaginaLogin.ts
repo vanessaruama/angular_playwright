@@ -1,13 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { test as base } from "@playwright/test";
 
-export const test = base.extend<{ paginaLogin: PaginaLogin }>({
-  paginaLogin: async ({page}, use) => {
-    const paginaLogin = new PaginaLogin(page);
-    await paginaLogin.visitar(); //Visita a página de login antes de cada teste
-    await use(paginaLogin); //Passa a instância da página de login para os testes
-  }
-});
 export default class PaginaLogin {
   private readonly page: Page;
   private readonly botaoLogin: Locator; //Elementos da tela
