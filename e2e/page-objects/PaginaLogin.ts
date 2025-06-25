@@ -35,4 +35,21 @@ export default class PaginaLogin {
     const elementoErro = this.page.getByText(mensagem); //Capturando de forma dinâmica a mensagem de erro
     await expect(elementoErro).toBeVisible(); //Verifica se a mensagem de erro está visível
   }
+
+  async emailInvalido(email: string, senha: string, mensagem: string) {
+    await this.inputEmail.fill(email); //Preenche o campo de email
+    await this.inputSenha.fill(senha); //Preenche o campo de senha
+
+    const elementoErro = this.page.getByText(mensagem);
+    await expect(elementoErro).toBeVisible();
+  }
+
+  async campoSenhaVazio(email: string, mensagem: string) {
+    await this.inputEmail.fill(email);
+
+    await this.page.keyboard.press('Tab'); //da um tab para o campo de senha
+    await this.page.keyboard.press('Tab'); //da um tab para o campo de senha
+    const elementoErro = this.page.getByText(mensagem);
+    await expect(elementoErro).toBeVisible();
+  }
 }

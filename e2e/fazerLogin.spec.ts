@@ -10,11 +10,25 @@ test.describe("Página de Login", () => {
     await paginaLogin.loginFeitoComSucesso();
   });
 
-  test("Não deve conseguir fazer login com email inválido", async ({ page }) => {
+  test("Não deve conseguir fazer login com email não cadastrado", async ({ page }) => {
     const paginaLogin = new PaginaLogin(page);
 
     await paginaLogin.visitar();
     await paginaLogin.fazerLogin("v.ruama@gmail.com", "1234");
     await paginaLogin.estaMostrandoMensagemDeErro("Você não está autorizado a acessar este recurso");
+  });
+
+  test("Não deve conseguir fazer login com email inválido", async ({ page }) => {
+    const paginaLogin = new PaginaLogin(page);
+
+    await paginaLogin.visitar();
+    await paginaLogin.emailInvalido("v.ruama", "1234", "E-mail inválido");
+  });
+
+  test("Verificar mensagem de erro ao deixar um campo em branco", async ({ page }) => {
+    const paginaLogin = new PaginaLogin(page);
+
+    await paginaLogin.visitar();
+    await paginaLogin.campoSenhaVazio("v.ruama@gmail.com", "Senha é obrigatória");
   });
 });
