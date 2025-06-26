@@ -10,11 +10,15 @@ test.describe("Página de Cadastro", () => {
   });
 
   test("Deve conseguir fazer cadastro", async ({ paginaCadastro }) => {
+    test.setTimeout(90000); //Tive que aumentar pois o teste estava demorando mais de 30 segundos para ser executado
+
     await paginaCadastro.cadastrarUsuario(novoUsuario);
     await paginaCadastro.cadastroFeitoComSucesso();
   });
 
   test("Não deve conseguir fazer cadastro com email duplicado", async ({ paginaCadastro }) => {
+    test.setTimeout(90000);
+
     await paginaCadastro.cadastrarUsuario(novoUsuario);
     await paginaCadastro.cadastroFeitoComSucesso();
 
