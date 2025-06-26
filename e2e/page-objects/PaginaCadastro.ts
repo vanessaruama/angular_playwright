@@ -1,11 +1,13 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { formatarDataParaForm } from "e2e/operacoes/datas";
+import { Genero } from "e2e/operacoes/gerarPerfil";
 
 export default class PaginaCadastro {
   private readonly page: Page;
   private readonly botaoVisitarPaginaCadastro: Locator;
   private readonly inputNome: Locator;
   private readonly inputDataNascimento: Locator;
+  private readonly radioGenero: { [chave in Genero]: Locator };
   private readonly inputCpf: Locator;
   private readonly inputCidade: Locator;
   private readonly inputTelefone: Locator;
@@ -23,6 +25,25 @@ export default class PaginaCadastro {
 
     this.inputNome = page.getByTestId('form-base-input-nome');
     this.inputDataNascimento = page.getByTestId('form-base-input-data-nascimento');
+
+    const radioGeneroFeminino = page
+      .getByTestId('form-base-radio-genero-feminino')
+      .getByLabel('Feminino');
+
+    const radioGeneroMasculino = page
+      .getByTestId('form-base-radio-genero-masculino')
+      .getByLabel('Masculino');
+
+    const radioGeneroOutro = page
+      .getByTestId('form-base-radio-genero-nao-informar')
+      .getByLabel('Prefiro não informar'); 
+
+    this.radioGenero = {
+      [Genero.FEMININO]: radioGeneroFeminino,
+      [Genero.MASCULINO]: radioGeneroMasculino,
+      [Genero.OUTRO]: radioGeneroOutro
+    }; //Mapeamento para informar o gênero selecionado
+
     this.inputCpf = page.getByTestId('form-base-input-cpf');
     this.inputCidade = page.getByTestId('form-base-input-cidade');
     this.inputTelefone = page.getByTestId('form-base-input-telefone');
@@ -62,6 +83,11 @@ export default class PaginaCadastro {
     await this.inputDataNascimento.fill(dataFormatada);
   }
 
+  async definirGenero(genero: Genero) {
+    const radioGenero = this.radioGenero[genero];
+    await radioGenero.check();
+  }
+
   async definirCpf(cpf: string) {
     await this.inputCpf.fill(cpf);
   }
@@ -71,7 +97,7 @@ export default class PaginaCadastro {
   }
   
   async definirEstado(estado: string) {
-    await this.inputEstado.selectOption(estado);
+    await this.inputEstado.fill(estado);
     await this.inputEstado.press('Enter');
   }
 
@@ -97,6 +123,14 @@ export default class PaginaCadastro {
 
   async confirmarTermos() {
     await this.checkboxTermos.check();
+  }
+
+  async submeterForm() {
+    await this.botaoSubmeterForm.click();
+  }
+
+  async cadastroFeitoComSucesso() {
+    await expect(this.page).toHaveURL("/auth/login");
   }
 
 }
