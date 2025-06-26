@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { formatarDataParaForm } from "e2e/operacoes/datas";
-import { Genero } from "e2e/operacoes/gerarPerfil";
+import { Genero, Perfil } from "e2e/operacoes/gerarPerfil";
 
 export default class PaginaCadastro {
   private readonly page: Page;
@@ -127,6 +127,23 @@ export default class PaginaCadastro {
 
   async submeterForm() {
     await this.botaoSubmeterForm.click();
+  }
+
+  async cadastrarUsuario(usuario: Perfil){
+    await this.definirNome(usuario.nome);
+    await this.definirDataNascimento(usuario.dataNascimento);
+    await this.definirGenero(usuario.genero);
+    await this.definirCpf(usuario.cpf);
+    await this.definirTelefone(usuario.telefone);
+    await this.definirCidade(usuario.cidade);
+    await this.definirEstado(usuario.estado);
+
+    await this.definirEmail(usuario.email);
+    await this.confirmarEmail(usuario.email);
+    await this.definirSenha(usuario.senha);
+    await this.confirmarSenha(usuario.senha);
+    await this.confirmarTermos();
+    await this.submeterForm();
   }
 
   async cadastroFeitoComSucesso() {
