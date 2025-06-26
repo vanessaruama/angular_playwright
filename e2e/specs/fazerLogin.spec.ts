@@ -1,13 +1,21 @@
+import { gerarPerfil } from "e2e/operacoes/gerarPerfil";
 import {test} from "../setup/fixtures";
 
 test.describe("Página de Login", () => {
-  test("Deve conseguir fazer login com email e senha válidos", async ({ paginaLogin }) => {
+  test("Deve conseguir fazer login com email e senha válidos", async ({ paginaLogin, paginaCadastro  }) => {
+    const novoUsuario = gerarPerfil();
+
+    await paginaCadastro.visitar();
+    await paginaCadastro.cadastrarUsuario(novoUsuario);
+    await paginaCadastro.cadastroFeitoComSucesso();
+
+    await paginaLogin.visitar();
     await paginaLogin.fazerLogin("ruama@gmail.com", "1234");
     await paginaLogin.loginFeitoComSucesso();
   });
 
   test("Não deve conseguir fazer login com email não cadastrado", async ({ paginaLogin }) => {
-    await paginaLogin.fazerLogin("v.ruama@gmail.com", "1234");
+    await paginaLogin.fazerLogin("v.ruama.error@gmail.com", "1234");
     await paginaLogin.estaMostrandoMensagemDeErro("Você não está autorizado a acessar este recurso");
   });
 

@@ -10,17 +10,14 @@ export const test = base.extend<{
 }>({
   paginaPrincipal: async ({page}, use) => {
     const paginaPrincipal = new PaginaPrincipal(page);
-    await paginaPrincipal.visitar();
     await use(paginaPrincipal);
   },
   paginaLogin: async ({page}, use) => {
     const paginaLogin = new PaginaLogin(page);
-    await paginaLogin.visitar(); //Visita a página de login antes de cada teste
     await use(paginaLogin); //Passa a instância da página de login para os testes
   },
   paginaCadastro: async ({page}, use) => {
-    const paginaCadastro = new PaginaCadastro(page);
-    await paginaCadastro.visitar(); 
+    const paginaCadastro = new PaginaCadastro(page); 
     await use(paginaCadastro);
   }
 
