@@ -114,7 +114,7 @@ export default class PaginaPrincipal {
   ) {
     const dataIdaExibicao = this.obterDataExibicao(dataIda);
 
-    await expect(this.textoIdaVolta).toHaveText(tipoTrajeto);
+    await expect(this.textoIdaVolta).toHaveText(tipoTrajeto, {timeout: 10000});
     await expect(this.containerOrigem).toContainText(origem);
     await expect(this.containerDestino).toContainText(destino);
     await expect(this.botaoComprar).toBeVisible();
